@@ -53,6 +53,8 @@ class CallbackView(View):
     def message_event(event):
         # オウム返し
         # reply = event.message.text  # 受信したメーッセージを取得
+
+        # 雑談Bot
         client = pya3rt.TalkClient(talk_api)
         response = client.talk(event.message.text)
         reply = response['results'][0]['reply']
