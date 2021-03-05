@@ -13,7 +13,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 # LINE Messaging APIは、CHANNEL_ACCESS_TOKENとCHANNEL_SECRETが必要
 line_bot_api = LineBotApi(settings.CHANNEL_ACCESS_TOKEN) # 各API通信を行うときに使用
 handler = WebhookHandler(settings.CHANNEL_SECRET) # 署名の検証で使用
-talk_api = settings.TALK_API # 雑談BotAPI
+# talk_api = settings.TALK_API # 雑談BotAPI
 
 class CallbackView(View):
     def get(self, request, *args, **kwargs):
