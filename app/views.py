@@ -9,11 +9,12 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
+import pya3rt
 
 # LINE Messaging APIは、CHANNEL_ACCESS_TOKENとCHANNEL_SECRETが必要
 line_bot_api = LineBotApi(settings.CHANNEL_ACCESS_TOKEN) # 各API通信を行うときに使用
 handler = WebhookHandler(settings.CHANNEL_SECRET) # 署名の検証で使用
-# talk_api = settings.TALK_API # 雑談BotAPI
+talk_api = settings.TALK_API # 雑談BotAPI
 
 class CallbackView(View):
     def get(self, request, *args, **kwargs):
@@ -51,7 +52,10 @@ class CallbackView(View):
     @handler.add(MessageEvent, message=TextMessage)
     def message_event(event):
         # オウム返し
-        reply = event.message.text  # 受信したメーッセージを取得
+        # reply = event.message.text  # 受信したメーッセージを取得
+        client = pya3rt.TalkClient(talk_api)
+        response = client.talk(event.message.text)
+        reply = response['results'][0]['reply']
 
         line_bot_api.reply_message(
             event.reply_token,
